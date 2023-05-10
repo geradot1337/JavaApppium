@@ -160,4 +160,5 @@ By.id("org.wikipedia:id/view_page_title_text"),
         element.clear();
         return element;
     }
+
 }
