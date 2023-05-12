@@ -76,6 +76,7 @@ waitForElementAndClear(
         5
 );
 
+
 waitAndSendKeys(
         By.id("org.wikipedia:id/text_input"),
         "",
