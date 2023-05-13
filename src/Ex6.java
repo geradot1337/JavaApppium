@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -35,7 +36,7 @@ public class Ex6 {
     }
 
     @Test
-    public void assertElementPresent()
+    public void findTitle()
     {
         waitAndClick(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
@@ -53,39 +54,23 @@ public class Ex6 {
                 "Cannot find article",
                 5
         );
+String required_element = "org.wikipedia:id/view_page_title_text";
 
-              waitForElementPresent(
-                By.id("org.wikipedia:id/view_page_title_text"),
-                "Cannot find article title",
-                0
-        );
 
+assertElementPresent(
+        By.id(required_element),
+        "Не удалось найти элемент" + required_element
+);
 
     }
+
     private WebElement waitAndClick(By by, String error_message, long timeout) {
         WebElement element = waitForElementPresent(by, error_message, timeout);
         element.click();
         return element;
     }
 
-    protected void swipeToLeft(By by, String error_message) {
-        WebElement element = waitForElementPresent(by,
-                error_message,
-                10
-        );
-        int left_x = element.getLocation().getX();
-        int right_x = left_x + element.getSize().getWidth();
-        int upper_y = element.getLocation().getY();
-        int lower_y= upper_y+element.getSize().getHeight();
-        int middle_y = (upper_y + lower_y) / 2;
-        TouchAction action = new TouchAction(driver);
-        action
-                .press(right_x, middle_y)
-                .waitAction(150)
-                .moveTo(left_x,middle_y)
-                .release()
-                .perform();
-    }
+
     private WebElement waitAndSendKeys(By by, String value, String error_message, long timeout) {
         WebElement element = waitForElementPresent(by, error_message, timeout);
         element.sendKeys(value);
@@ -93,11 +78,13 @@ public class Ex6 {
     }
 
 
+    private void assertElementPresent(By by, String error_message)
+    {
+        Assert.assertTrue(
+                error_message,
+                driver.findElement(by).isDisplayed()
+        );
 
-    private WebElement waitForElementAndClear(By by, String error_message, long timeout) {
-        WebElement element = waitForElementPresent(by, error_message, timeout);
-        element.clear();
-        return element;
     }
 
 
