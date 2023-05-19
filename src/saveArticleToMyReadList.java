@@ -1,4 +1,6 @@
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileDriver;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.After;
@@ -15,8 +17,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
 import java.util.List;
+
+import static org.openqa.selenium.By.id;
+
 public class saveArticleToMyReadList {
     private AppiumDriver driver;
+
     @Before
     public void setUp() throws Exception {
         DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -58,21 +64,28 @@ public class saveArticleToMyReadList {
         driver.findElement(By.xpath("//*[@class='android.widget.LinearLayout' and @index='3']")).click();
 
         waitAndClick(
-                By.id("org.wikipedia:id/onboarding_button"),
+                id("org.wikipedia:id/onboarding_button"),
                 "Нет кнопки Гот Ит",
                 5
         );
         waitForElementAndClear(
-                By.id("org.wikipedia:id/text_input"),
+                id("org.wikipedia:id/text_input"),
                 "Нет инпута",
                 5
         );
-        waitAndSendKeys(
-                By.id("org.wikipedia:id/text_input"),
-                listName,
-                "не удалось ввести название листа",
-                5
-        );
+        //driver.getKeyboard().sendKeys("textToBeTyped");
+        WebElement el = waitForElementPresent(By.id("org.wikipedia:id/text_input"), "не вставилось", 5);
+
+        MobileElement elMobile = (MobileElement) el;
+        elMobile.setValue(listName);
+
+
+//        waitAndSendKeys(
+//                By.id("org.wikipedia:id/text_input"),
+//                listName,
+//                "не удалось ввести название листа",
+//                5
+//        );
         waitAndClick(
                 By.xpath("//*[@text='OK']"),
                 "Не удалось нажать ОКей",
@@ -84,7 +97,7 @@ public class saveArticleToMyReadList {
                 5
         );
         waitAndClick(
-                By.xpath("//*[@class='android.widget.FrameLayout' and @content-desc='My lists']"),
+                By.xpath("//*[@content-desc='My lists']"),
                 "Нет кнопки мой список",
                 5
         );
@@ -114,6 +127,7 @@ public class saveArticleToMyReadList {
                 ExpectedConditions.presenceOfElementLocated(by)
         );
     }
+
     private WebElement waitAndClick(By by, String error_message, long timeout) {
         WebElement element = waitForElementPresent(by, error_message, timeout);
         element.click();
