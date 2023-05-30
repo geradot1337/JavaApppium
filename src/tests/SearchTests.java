@@ -7,14 +7,20 @@ import org.junit.Test;
 public class SearchTests extends CoreTestCase
 {
     @Test
-    public void testSearch() {
-
-
+    public void testSearchByTitleAndDescription()
+    {
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.waitForSearchResultByTitleAndDescription("Java", "Object-oriented programming language");
+    }
+    @Test
+    public void testSearch()
+    {
         SearchPageObject SearchPageObject = new SearchPageObject(driver);
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Appium");
         SearchPageObject.waitForSearchResult("Automation for Apps");
-
     }
 
     @Test
