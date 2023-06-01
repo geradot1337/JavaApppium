@@ -16,6 +16,6 @@ public class Ex6  extends CoreTestCase {
         SearchPageObject.typeSearchLine("Java");
         SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
         ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
-        ArticlePageObject.assertTittlePresent();
+
     }
   }

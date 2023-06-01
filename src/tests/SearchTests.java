@@ -28,7 +28,7 @@ public class SearchTests extends CoreTestCase
     {
         SearchPageObject SearchPageObject = new SearchPageObject(driver);
         SearchPageObject.initSearchInput();
-        //SearchPageObject.typeSearchLine("Appium");
+        SearchPageObject.typeSearchLine("Appium");
         SearchPageObject.waitForCancelButtonToAppear();
         SearchPageObject.clickCancelButtun();
         SearchPageObject.waitForCancelButtonToDisappear();

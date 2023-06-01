@@ -1,7 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.By;
+
 
 public class NavigationUI  extends MainPageObject{
     private static final String
@@ -15,7 +15,7 @@ public class NavigationUI  extends MainPageObject{
     public void clickMylist()
     {
         this.waitAndClick(
-                By.xpath(MY_LIST_LINK),
+                MY_LIST_LINK,
                 "Нет кнопки мой список",
                 5
         );

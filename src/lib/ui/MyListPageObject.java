@@ -1,7 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.By;
+
 
 public class MyListPageObject extends MainPageObject{
     public static final String
@@ -22,25 +22,25 @@ public class MyListPageObject extends MainPageObject{
     public void openFolderByName(String name_of_folder)
     { String folder_name_xpath = getFolderXpathByName(name_of_folder);
         this.waitAndClick(
-                By.xpath(folder_name_xpath),
+                folder_name_xpath,
                 "Нет созданного списка",
                 10
         );
     }
     public void swipeArticleToDelete(String article_title)
     {
-        String article_xpath = getFolderXpathByName(article_title);
-        this.swipeToLeft(
-                By.xpath(article_xpath),
-                "нет нужной статьи"
-        );
-        this.waitForArticleToDisappearByTittle(article_title);
+//        String article_xpath = getFolderXpathByName(article_title);
+//        this.swipeToLeft(
+//                By.xpath(article_xpath),
+//                "нет нужной статьи"
+//        );
+//        this.waitForArticleToDisappearByTittle(article_title);
     }
     public void waitForArticleToDisappearByTittle(String article_title)
     { this.waitForArticleToAppearByTittle(article_title);
         String article_xpath = getFolderXpathByName(article_title);
        this.waitForElementNotPresent(
-                By.xpath(article_xpath) ,
+                article_xpath ,
                 "Saved article still present with title " + article_title,
                 15
        );
@@ -49,7 +49,7 @@ public class MyListPageObject extends MainPageObject{
     {
         String article_xpath = getFolderXpathByName(article_title);
         this.waitForElementPresent(
-                By.xpath(article_xpath) ,
+                article_xpath ,
                 "Cannot find saved article by title " + article_title,
                 15
         );

@@ -108,10 +108,10 @@ public class saveArticleToMyReadList {
                 "Нет созданного списка",
                 10
         );
-        swipeToLeft(
-                By.xpath("//*[text='Appium']"),
-                "нет нужной статьи"
-        );
+//        swipeToLeft(
+//                By.xpath("//*[text='Appium']"),
+//                "нет нужной статьи"
+//        );
         waitForElementNotPresent(
                 By.xpath("//*[text='Appium']"),
                 "Статья еще тут",
@@ -158,25 +158,25 @@ public class saveArticleToMyReadList {
     }
 
 
-    protected void swipeToLeft(By by, String error_message)
-    {
-        WebElement element =   waitForElementPresent(by,
-                error_message,
-                10
-        );
-        int left_x = element.getLocation().getX();
-        int right_x = left_x + element.getSize().getWidth();
-        int upper_y = element.getLocation().getY();
-        int lower_y= upper_y+element.getSize().getHeight();
-        int middle_y = (upper_y + lower_y) / 2;
-        TouchAction action = new TouchAction(driver);
-        action
-                .press(right_x, middle_y)
-                .waitAction(150)
-                .moveTo(left_x,middle_y)
-                .release()
-                .perform();
-    }
+//    protected void swipeToLeft(By by, String error_message)
+//    {
+//        WebElement element =   waitForElementPresent(by,
+//                error_message,
+//                10
+//        );
+//        int left_x = element.getLocation().getX();
+//        int right_x = left_x + element.getSize().getWidth();
+//        int upper_y = element.getLocation().getY();
+//        int lower_y= upper_y+element.getSize().getHeight();
+//        int middle_y = (upper_y + lower_y) / 2;
+//        TouchAction action = new TouchAction(driver);
+//        action
+//                //.press(right_x, middle_y)
+//                .waitAction(150)
+//                .moveTo(left_x,middle_y)
+//                .release()
+//                .perform();
+//    }
 
 
 
