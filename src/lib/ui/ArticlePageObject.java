@@ -2,21 +2,25 @@ package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
 
+import lib.Platform;
 import org.openqa.selenium.WebElement;
 
+import static lib.ui.SearchPageObject.CLOSE_SEARCH_BTN;
+import static lib.ui.SearchPageObject.SEARCH_CANCEL_BUTTON;
 
 
-public class ArticlePageObject extends MainPageObject
+abstract public class ArticlePageObject extends MainPageObject
 {
-    private static final String
-    TITLE = "id:org.wikipedia:id/view_page_title_text",
-    OPTIONS_BUTTON = "xpath://android.widget.ImageView[@content-desc='More options']",
-    OPTIONS_ADD_TO_MY_READING_LIST = "xpath://*[@text='Add to reading list']",
-    ADD_TO_MY_READING_LIST_OVERLAY = "id:org.wikipedia:id/onboarding_button",
-    MY_LIST_NAME_INPUT = "id:org.wikipedia:id/text_input",
-    MY_LIST_NAME_OK = "xpath://*[@text='OK']",
-    CLOSE_ARTICLE_BTN = "xpath://android.widget.ImageButton[@content-desc='Navigate up']",
-    FOOTER_ELEMENT = "xpath://*[@text='View page in browser']";
+ protected static String
+    TITLE,
+    TITLE1,
+    OPTIONS_BUTTON,
+    OPTIONS_ADD_TO_MY_READING_LIST,
+    ADD_TO_MY_READING_LIST_OVERLAY,
+    MY_LIST_NAME_INPUT ,
+    MY_LIST_NAME_OK,
+    CLOSE_ARTICLE_BTN,
+    FOOTER_ELEMENT ;
     public ArticlePageObject(AppiumDriver driver)
     {
         super(driver);
@@ -28,14 +32,25 @@ public class ArticlePageObject extends MainPageObject
     {
         return this.waitForElementPresent(TITLE, "Cannot find article tittle on page", 10);
     }
-    public String getArticleTitle()
-    {
+    public String getArticleTitle() {
         WebElement title_element = waitForTitleElement();
-        return  title_element.getAttribute("text");
+        if (Platform.getInstance().isAndroid()) {
+            return title_element.getAttribute("text");
+        } else
+        {
+            return title_element.getAttribute("name");
+        }
     }
-    public void swipeToFooter()
-    {
-this.swipeUpToFindElement(FOOTER_ELEMENT, "Cannot find the end of article",20);
+    public void swipeToFooter() {
+        if (Platform.getInstance().isAndroid()) {
+            this.swipeUpToFindElement(FOOTER_ELEMENT,
+                    "Cannot find the end of article",
+                    40);
+        } else {
+            this.swipeUpTillElementAppear(FOOTER_ELEMENT,
+                    "Cannot find the end of article",
+                    40);
+        }
     }
     public void addArticleToMyList(String nameOfFolder)
     {
@@ -72,12 +87,18 @@ this.waitForElementPresent(
         );
     }
     public void closeArticle()
-    {
+    { if(Platform.getInstance().isAndroid()) {
         this.waitAndClick(
                 CLOSE_ARTICLE_BTN,
                 "Не удалось закрыть, нет кнопки выход",
                 5
         );
+    } else {
+        this.waitAndClick(                CLOSE_ARTICLE_BTN,                "Не удалось закрыть, нет кнопки выход",
+                5
+        );
+        this.waitAndClick(CLOSE_SEARCH_BTN,"Cannot find search cancel button", 5);
+    }
     }
     public void addNotFirstArticleToMyList(String nameOfFolder)
     {
@@ -109,5 +130,8 @@ this.waitForElementPresent(
                 5
         );
     }
-
+    public void addArticlesToMySaved()
+    {
+        this.waitAndClick(OPTIONS_ADD_TO_MY_READING_LIST,"Cannot find option to add article to reading list", 5);
+    }
 }

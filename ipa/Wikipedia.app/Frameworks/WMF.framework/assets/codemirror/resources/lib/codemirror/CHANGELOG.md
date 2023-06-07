@@ -802,7 +802,7 @@ Fix a [bug](https://github.com/codemirror/CodeMirror/issues/3834) that caused ph
 
 ## 5.0.0 (2015-02-20)
 
-*   Experimental mobile support (tested on tests.iOS, Android Chrome, stock Android browser)
+*   Experimental mobile support (tested on iOS, Android Chrome, stock Android browser)
 *   New option [`inputStyle`](http://codemirror.net/doc/manual.html#option_inputStyle) to switch between hidden textarea and contenteditable input.
 *   The [`getInputField`](http://codemirror.net/doc/manual.html#getInputField) method is no longer guaranteed to return a textarea.
 *   Full [list of patches](https://github.com/codemirror/CodeMirror/compare/4.13.0...5.0.0).

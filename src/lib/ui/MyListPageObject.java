@@ -1,12 +1,14 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import lib.Platform;
 
 
-public class MyListPageObject extends MainPageObject{
-    public static final String
-    FOLDER_BY_NAME_TPL ="//*[@text='{FOLDER_NAME}']",
-    ARTICLE_BY_TITLE_TPL="//*[text='{ARTICLE_NAME}']";
+abstract public class MyListPageObject extends MainPageObject{
+    protected static String
+    FOLDER_BY_NAME_TPL,
+    ARTICLE_BY_TITLE_TPL,
+    DELETE_ARTICLE;
     public MyListPageObject(AppiumDriver driver)
     {
         super(driver);
@@ -28,17 +30,23 @@ public class MyListPageObject extends MainPageObject{
         );
     }
     public void swipeArticleToDelete(String article_title)
-    {
-//        String article_xpath = getFolderXpathByName(article_title);
-//        this.swipeToLeft(
-//                By.xpath(article_xpath),
-//                "нет нужной статьи"
-//        );
-//        this.waitForArticleToDisappearByTittle(article_title);
+    {this.waitForArticleToAppearByTittle(article_title);
+        String article_xpath = getSaveArticleByTitle(article_title);
+        this.swipeToLeft(
+                article_xpath,
+                "нет нужной статьи"
+        );
+        if(Platform.getInstance().isIOS()){
+this.clickSavedElementToDelete(DELETE_ARTICLE, "Cannot find saved article");
+
+        }
+            this.waitForArticleToDisappearByTittle(article_title);
+
+
     }
     public void waitForArticleToDisappearByTittle(String article_title)
-    { this.waitForArticleToAppearByTittle(article_title);
-        String article_xpath = getFolderXpathByName(article_title);
+    {
+        String article_xpath = getSaveArticleByTitle(article_title);
        this.waitForElementNotPresent(
                 article_xpath ,
                 "Saved article still present with title " + article_title,
@@ -47,7 +55,7 @@ public class MyListPageObject extends MainPageObject{
     }
     public void waitForArticleToAppearByTittle(String article_title)
     {
-        String article_xpath = getFolderXpathByName(article_title);
+        String article_xpath = getSaveArticleByTitle(article_title);
         this.waitForElementPresent(
                 article_xpath ,
                 "Cannot find saved article by title " + article_title,

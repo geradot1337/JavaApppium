@@ -1,24 +1,34 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import lib.Platform;
 
 
-public class NavigationUI  extends MainPageObject{
-    private static final String
-    MY_LIST_LINK = "//*[@class='android.widget.FrameLayout' and @content-desc='My lists']";
+abstract public class NavigationUI  extends MainPageObject{
+    protected static String
+    MY_LIST_LINK,
+    SYNC_CLOSE_BTN;
 
 
     public NavigationUI(AppiumDriver driver)
     {
         super(driver);
     }
-    public void clickMylist()
-    {
-        this.waitAndClick(
-                MY_LIST_LINK,
-                "Нет кнопки мой список",
-                5
-        );
+    public void clickMylist() {
+        if (Platform.getInstance().isAndroid()) {
+            this.waitAndClick(
+                    MY_LIST_LINK,
+                    "Нет кнопки мой список",
+                    5
+            );
+        } else {
+            this.waitAndClick(
+                    MY_LIST_LINK,
+                    "Нет кнопки мой список",
+                    5
+            );
+            this.waitAndClick(SYNC_CLOSE_BTN, "Cannot find close sync btn", 5);
+        }
     }
 
 }

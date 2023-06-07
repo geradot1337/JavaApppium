@@ -3,17 +3,17 @@ package lib.ui;
 import io.appium.java_client.AppiumDriver;
 
 
-public class SearchPageObject extends MainPageObject {
-    private static final String
-            SEARCH_INIT_ELEMENT = "xpath://*[contains(@text, 'Search Wikipedia')]",
-            SEARCH_INPUT = "xpath://*[contains(@text, 'Search…')]",
-    SEARCH_CANCEL_BUTTON = "id:org.wikipedia:id/search_close_btn",
-            CLOSE_SEARCH_BTN = "id:org.wikipedia:id/search_close_btn",
-LOCATOR = "xpath://*[@resource-id='org.wikipedia:id/search_results_list']",
-    NO_RESULTS_LABEL = "xpath://*[@text='No results found']",
-    SEARCH_RESULT_ELEMENT = "xpath://*[@resource-id='org.wikipedia:id/search_results_list']",
-    SEARCH_RESULT_BY_SUBSTRING_TPL = "xpath://*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='{SUBSTRING}']",
-    SEARCH_RESULT_BY_TITLE_AND_DESCRIPTION_TPL= "xpath://android.widget.FrameLayout[//android.widget.TextView[@text='{TITLE}']][//android.widget.TextView[@text='{DESCRIPTION}']]";
+abstract public class SearchPageObject extends MainPageObject {
+ protected    static String
+            SEARCH_INIT_ELEMENT,
+            SEARCH_INPUT ,
+    SEARCH_CANCEL_BUTTON ,
+            CLOSE_SEARCH_BTN ,
+LOCATOR  ,
+    NO_RESULTS_LABEL ,
+    SEARCH_RESULT_ELEMENT ,
+    SEARCH_RESULT_BY_SUBSTRING_TPL ,
+    SEARCH_RESULT_BY_TITLE_AND_DESCRIPTION_TPL;
 public void waitForCancelButtonToAppear()
 {
     this.waitForElementPresent(SEARCH_CANCEL_BUTTON, "Cannot find search cancel button", 5);

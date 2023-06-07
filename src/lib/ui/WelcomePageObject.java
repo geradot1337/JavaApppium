@@ -6,12 +6,13 @@ import io.appium.java_client.AppiumDriver;
 public class WelcomePageObject extends MainPageObject
 {
     private static final String
-    LEARN_MORE_XPATH = "xpath://XCUIElementTypeStaticText[@name=\"Узнать подробнее о Википедии\"]",
-    NEW_WAYS = "xpath://XCUIElementTypeStaticText[@name=\"Новые способы изучения\"]",
-    LEARN_MORE_ABOUT_DATA = "id:Помогите сделать это приложение лучше",
-    NEXT_BTN ="xpath://XCUIElementTypeButton[@name='Далее']",
-    FIND_LANGUAGE_BTN = "id:Искать на почти 300 языках",
-    GET_STARTED_BTN = "xpath://XCUIElementTypeStaticText[@name='Начать']";
+    LEARN_MORE_XPATH = "xpath://XCUIElementTypeStaticText[@name='Lear more about Wikipedia]",
+    NEW_WAYS = "xpath://XCUIElementTypeStaticText[@name='New ways to explore']",
+    LEARN_MORE_ABOUT_DATA = "id:Help make the app better",
+    NEXT_BTN ="xpath://XCUIElementTypeButton[@name='Next']",
+    FIND_LANGUAGE_BTN = "id:Search in over 300 languages",
+    SKIP = "xpath://XCUIElementTypeButton[@name='Skip']",
+    GET_STARTED_BTN = "xpath://XCUIElementTypeStaticText[@name='Get started']";
     public WelcomePageObject(AppiumDriver driver)
     {
         super(driver);
@@ -45,5 +46,9 @@ public void clickGetStarted()
 {
     this.waitAndClick(GET_STARTED_BTN
     ,"Нет удалось найти кнопку Начать", 5);
+}
+public void clickSkip()
+{
+    this.waitAndClick(SKIP, "Cannot find Skip btn", 5);
 }
 }
